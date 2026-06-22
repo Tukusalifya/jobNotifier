@@ -1,0 +1,36 @@
+# Job Mailer Category Mappings
+# Maps raw category names from scraping sources to unified internal taxonomy.
+# Supported normalized categories:
+# - IT & Telecoms
+# - Finance
+# - Marketing
+# - Engineering
+# - Administration
+
+mappings:
+  gozambiajobs:
+    "IT & Telecoms": "IT & Telecoms"
+    "IT and Telecoms": "IT & Telecoms"
+    "Information Technology": "IT & Telecoms"
+    "Software & Development": "IT & Telecoms"
+    "Software Engineering": "IT & Telecoms"
+    "Telecoms": "IT & Telecoms"
+    "Finance": "Finance"
+    "Finance & Accounting": "Finance"
+    "Banking & Finance": "Finance"
+    "Accounting": "Finance"
+    "Banking": "Finance"
+    "Marketing": "Marketing"
+    "Marketing & Communications": "Marketing"
+    "Sales & Marketing": "Marketing"
+    "Public Relations": "Marketing"
+    "Engineering": "Engineering"
+    "Engineering & Construction": "Engineering"
+    "Civil Engineering": "Engineering"
+    "Mechanical Engineering": "Engineering"
+    "Electrical Engineering": "Engineering"
+    "Administration": "Administration"
+    "Administration & HR": "Administration"
+    "Human Resources": "Administration"
+    "Office Administration": "Administration"
+    "Secretary & Receptionist": "Administration"

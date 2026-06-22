@@ -1,0 +1,1 @@
+from jobnotifier.normalizer.normalizer import normalize_category, load_mappings
