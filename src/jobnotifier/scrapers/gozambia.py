@@ -1,12 +1,25 @@
-from typing import List, Dict
+import re
+import json
+import logging
+import requests
+
+from config.settings import Settings
+from jobnotifier.models.job import Job
+from config.constants import GOZAMBIAJOBS_URL
+from config.logging_config import logging_config
 from jobnotifier.scrapers.base import BaseScraper
+from jobnotifier.helpers.data_parsers import format_category, datetime_formatter
+
+logger = logging_config(__name__, level=logging.INFO)
+session = requests.Session()
+
 
 class GoZambiaScraper(BaseScraper):
     @property
     def source_name(self) -> str:
         return "gozambiajobs"
-        
-    def scrape(self) -> List[Dict]:
+
+    def scrape(self) -> list[Job]:
         """
         Scrapes job listings from GoZambia Jobs.
         
@@ -19,6 +32,59 @@ class GoZambiaScraper(BaseScraper):
             - 'raw_category': str
             - 'source_site': str
         """
-        # TODO: Implement scraping logic using requests and lxml
-        print("GoZambiaScraper: Scraping listings...")
-        return []
+        try:
+            job_listings, jobs = [], []
+
+            for category in Settings.TARGET_CATEGORIES:
+                params = {
+                    "category": format_category(category),
+                }
+                response = session.get(GOZAMBIAJOBS_URL, params=params)
+                html = response.text
+
+                match = re.search(
+                    r'window\.jobsList\s*=\s*window\.jobsList\.concat\((\[.*?\])\);',
+                    html,
+                    flags=re.DOTALL
+                )
+
+                if match:
+                    jobs = json.loads(match.group(1))
+
+                for job in jobs:
+                    title = job['title']
+                    url = GOZAMBIAJOBS_URL + job['job_details_path']
+                    company = job['employer']['name']
+                    location = job['job_location']['name'] if job['job_location'] else "Not specified"
+                    job_type = job['job_type']['title']
+                    posted_date = job['posted_at']
+
+                    job_listings.append(
+                        Job(
+                            title=title,
+                            company=company,
+                            location=location,
+                            url=url,
+                            type=job_type,
+                            category=category,
+                            source=self.source_name,
+                            posted_date=datetime_formatter(date_string=posted_date, datetime_object=None),
+                        )
+                    )
+
+            return job_listings
+
+        except Exception as e:
+            logger.critical(f"An unexpected error has occurred while scraping from gozambiajobs: {e}", exc_info=True)
+
+
+def test():
+    scraper = GoZambiaScraper()
+    jobs = scraper.scrape()
+
+    for job in jobs:
+        logger.debug(job)
+
+
+if __name__ == "__main__":
+    test()
