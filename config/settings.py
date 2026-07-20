@@ -18,7 +18,7 @@ class Settings:
     EMAIL_RECIPIENT = os.getenv("EMAIL_RECIPIENT", "recipient@example.com")
 
     # Target categories to filter (comma-separated list)
-    _raw_categories = os.getenv("TARGET_CATEGORIES", "IT & Telecoms,Finance,Engineering")
+    _raw_categories = os.getenv("TARGET_CATEGORIES", "IT & Telecoms")
     TARGET_CATEGORIES = [c.strip() for c in _raw_categories.split(",") if c.strip()]
 
     # Database path (resolve relative to project base if needed)
