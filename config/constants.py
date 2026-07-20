@@ -1,0 +1,1 @@
+GOZAMBIAJOBS_URL = "https://gozambiajobs.com/jobs"
