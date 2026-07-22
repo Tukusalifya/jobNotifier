@@ -2,11 +2,12 @@ import logging
 import requests
 
 from lxml import html
+
 from config.settings import Settings
 from jobnotifier.models.job import Job
-from config.constants import JOBWEBZAMBIA_URL, JOBWEBZAMBIA_NAME
 from config.logging_config import logging_config
 from jobnotifier.scrapers.base import BaseScraper
+from config.constants import JOBWEBZAMBIA_URL, JOBWEBZAMBIA_NAME
 from jobnotifier.helpers.data_parsers import format_category, datetime_formatter
 
 logger = logging_config(__name__, level=logging.DEBUG)
@@ -38,7 +39,6 @@ class JobWebaZambiaScraper(BaseScraper):
                 category = format_category(category=category, scraper=self.source_name)
 
                 response = session.get(JOBWEBZAMBIA_URL + f"/{category}")
-                logger.info(JOBWEBZAMBIA_URL + f"/{category}")
                 data = response.content
                 tree = html.fromstring(data)
 
@@ -95,9 +95,6 @@ class JobWebaZambiaScraper(BaseScraper):
 def test():
     scraper = JobWebaZambiaScraper()
     jobs = scraper.scrape()
-
-    if not jobs:
-        logger.critical("Empty")
 
     for job in jobs:
         logger.debug(job)
