@@ -18,4 +18,5 @@ class Job:
     source: str = "gozambiajobs"
 
     scraped_at: str = field(
-        default_factory=lambda: datetime_formatter(datetime_object=datetime.now(), date_string=None))
+        default_factory=lambda: datetime_formatter(datetime_object=datetime.now(),
+                                                   date_string=None, scraper_name=None),)
