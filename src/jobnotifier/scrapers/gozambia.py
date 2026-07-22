@@ -5,7 +5,7 @@ import requests
 
 from config.settings import Settings
 from jobnotifier.models.job import Job
-from config.constants import GOZAMBIAJOBS_URL
+from config.constants import GOZAMBIAJOBS_URL, GOZAMBIAJOBS_NAME
 from config.logging_config import logging_config
 from jobnotifier.scrapers.base import BaseScraper
 from jobnotifier.helpers.data_parsers import format_category, datetime_formatter
@@ -17,7 +17,7 @@ session = requests.Session()
 class GoZambiaScraper(BaseScraper):
     @property
     def source_name(self) -> str:
-        return "gozambiajobs"
+        return GOZAMBIAJOBS_NAME
 
     def scrape(self) -> list[Job]:
         """
