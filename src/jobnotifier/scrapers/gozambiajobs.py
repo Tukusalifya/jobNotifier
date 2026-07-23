@@ -35,9 +35,10 @@ class GoZambiaScraper(BaseScraper):
         try:
             job_listings, jobs = [], []
 
-            for category in Settings.TARGET_CATEGORIES:
+            logger.info("Starting GoZambiaJobs Scraper....")
+            for category in Settings.GOZAMBIAJOBS_CATEGORIES:
                 params = {
-                    "category": format_category(category),
+                    "category": format_category(category=category, scraper=self.source_name),
                 }
                 response = session.get(GOZAMBIAJOBS_URL, params=params)
                 html = response.text
@@ -68,7 +69,8 @@ class GoZambiaScraper(BaseScraper):
                             type=job_type,
                             category=category,
                             source=self.source_name,
-                            posted_date=datetime_formatter(date_string=posted_date, datetime_object=None),
+                            posted_date=datetime_formatter(date_string=posted_date, datetime_object=None,
+                                                           scraper_name=self.source_name),
                         )
                     )
 
