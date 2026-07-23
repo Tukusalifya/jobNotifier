@@ -1,5 +1,5 @@
-from dataclasses import dataclass, field
 from datetime import datetime
+from dataclasses import dataclass, field
 
 from jobnotifier.helpers.data_parsers import datetime_formatter
 

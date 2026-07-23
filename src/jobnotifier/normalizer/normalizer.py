@@ -1,6 +1,7 @@
 import os
 import yaml
-from typing import Dict, Optional, List
+
+from typing import Dict, Optional
 from config.settings import Settings
 
 # Cached mappings dictionary
