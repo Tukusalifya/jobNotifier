@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Find project base directory
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parents[1]
 
 
 class Settings:
@@ -18,8 +18,12 @@ class Settings:
     EMAIL_RECIPIENT = os.getenv("EMAIL_RECIPIENT", "recipient@example.com")
 
     # Target categories to filter (comma-separated list)
-    _raw_categories = os.getenv("TARGET_CATEGORIES", "IT & Telecoms")
-    TARGET_CATEGORIES = [c.strip() for c in _raw_categories.split(",") if c.strip()]
+    _raw_gozambiajobs_categories = os.getenv("GOZAMBIAJOBS_CATEGORIES", "IT & Telecoms")
+    GOZAMBIAJOBS_CATEGORIES = [c.strip() for c in _raw_gozambiajobs_categories.split(",") if c.strip()]
+
+    # Target categories to filter (comma-separated list)
+    _raw_jobwebzambia_categories = os.getenv("JOBWEBZAMBIA_CATEGORIES", "IT & Telecoms")
+    JOBWEBZAMBIA_CATEGORIES = [c.strip() for c in _raw_jobwebzambia_categories.split(",") if c.strip()]
 
     # Database path (resolve relative to project base if needed)
     _db_path = os.getenv("DATABASE_PATH", "jobs.db")
