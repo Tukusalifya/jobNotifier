@@ -1,2 +1,3 @@
 from jobnotifier.scrapers.base import BaseScraper
 from jobnotifier.scrapers.gozambiajobs import GoZambiaScraper
+from jobnotifier.scrapers.jobwebzambia import JobWebaZambiaScraper
