@@ -1,9 +1,10 @@
 import logging
-from datetime import datetime
-from typing import Optional
 
-from config.constants import JOBWEBZAMBIA_NAME, GOZAMBIAJOBS_NAME
+from typing import Optional
+from datetime import datetime
+
 from config.logging_config import logging_config
+from config.constants import JOBWEBZAMBIA_NAME, GOZAMBIAJOBS_NAME
 
 logger = logging_config(__name__, level=logging.INFO)
 
