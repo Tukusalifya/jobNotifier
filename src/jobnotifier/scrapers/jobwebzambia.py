@@ -35,10 +35,12 @@ class JobWebaZambiaScraper(BaseScraper):
         try:
             job_listings, jobs = [], []
 
-            for category in Settings.TARGET_CATEGORIES:
-                category = format_category(category=category, scraper=self.source_name)
+            logger.info("Starting JobWebZambia Scraper....")
 
-                response = session.get(JOBWEBZAMBIA_URL + f"/{category}")
+            for category in Settings.JOBWEBZAMBIA_CATEGORIES:
+                formatted_category = format_category(category=category, scraper=self.source_name)
+
+                response = session.get(JOBWEBZAMBIA_URL + f"/{formatted_category}")
                 data = response.content
                 tree = html.fromstring(data)
 
