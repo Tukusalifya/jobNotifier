@@ -5,9 +5,9 @@ import requests
 
 from config.settings import Settings
 from jobnotifier.models.job import Job
-from config.constants import GOZAMBIAJOBS_URL, GOZAMBIAJOBS_NAME
 from config.logging_config import logging_config
 from jobnotifier.scrapers.base import BaseScraper
+from config.constants import GOZAMBIAJOBS_URL, GOZAMBIAJOBS_NAME
 from jobnotifier.helpers.data_parsers import format_category, datetime_formatter
 
 logger = logging_config(__name__, level=logging.INFO)
@@ -36,11 +36,12 @@ class GoZambiaScraper(BaseScraper):
             job_listings, jobs = [], []
 
             logger.info("Starting GoZambiaJobs Scraper....")
+
             for category in Settings.GOZAMBIAJOBS_CATEGORIES:
                 params = {
                     "category": format_category(category=category, scraper=self.source_name),
                 }
-                response = session.get(GOZAMBIAJOBS_URL, params=params)
+                response = session.get(GOZAMBIAJOBS_URL + "/jobs", params=params)
                 html = response.text
 
                 match = re.search(
@@ -56,7 +57,7 @@ class GoZambiaScraper(BaseScraper):
                     title = job['title']
                     url = GOZAMBIAJOBS_URL + job['job_details_path']
                     company = job['employer']['name']
-                    location = job['job_location']['name'] if job['job_location'] else "Not specified"
+                    location = job['location'] if job['location'] else "Not specified"
                     job_type = job['job_type']['title']
                     posted_date = job['posted_at']
 
