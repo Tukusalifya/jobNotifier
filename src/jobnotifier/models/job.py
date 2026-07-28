@@ -14,6 +14,7 @@ class Job:
     type: str
     source: str
 
+    id: int | None = None
     normalized_category: str | None = None
     posted_date: str | None = None
 
