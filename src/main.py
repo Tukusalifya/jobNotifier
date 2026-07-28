@@ -47,23 +47,23 @@ def main() -> None:
 
     logger.info(f"Processed {len(raw_jobs)} total listings. Saved {len(new_jobs_saved)} new matching jobs.")
 
-    # # 5. Retrieve all pending notifications (including older unsent ones)
-    # pending_jobs = get_pending_notifications()
-    #
-    # # 6. Send email notification
-    # if pending_jobs:
-    #     try:
-    #         notifier = Notifier()
-    #         notifier.send_job_alerts(pending_jobs)
-    #
-    #         # Mark these jobs as notified
-    #         job_ids = [job["id"] for job in pending_jobs if "id" in job]
-    #         mark_as_notified(job_ids)
-    #         print(f"Successfully notified user of {len(pending_jobs)} jobs.")
-    #     except Exception as e:
-    #         print(f"Failed to send email notifications: {e}")
-    #
-    # print("Job Mailer run completed successfully.")
+    # 5. Retrieve all pending notifications (including older unsent ones)
+    pending_jobs = get_pending_notifications()
+
+    # 6. Send email notification
+
+    try:
+        notifier = Notifier()
+        notifier.send_job_alerts(pending_jobs)
+
+        # Mark these jobs as notified
+        job_ids = [job.id for job in pending_jobs if job.id is not None]
+        mark_as_notified(job_ids)
+        logger.info(f"Successfully notified user of {len(pending_jobs)} jobs.")
+    except Exception as e:
+        logger.critical(f"Failed to send email notifications: {e}")
+
+    logger.info("Job Mailer run completed successfully.")
 
 
 if __name__ == "__main__":
