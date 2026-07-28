@@ -30,6 +30,7 @@ def init_db() -> None:
             source_site TEXT NOT NULL,
             raw_category TEXT,
             normalized_category TEXT,
+            posted_date TEXT,
             scraped_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             notified INTEGER DEFAULT 0
         )
@@ -89,8 +90,8 @@ def save_job(job: Job) -> bool:
             """
             INSERT INTO jobs (
                 content_hash, title, company, job_type, location, url, 
-                source_site, raw_category, normalized_category, notified
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
+                source_site, raw_category, normalized_category, notified, posted_date, scraped_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)
             """,
             (
                 content_hash,
@@ -102,6 +103,8 @@ def save_job(job: Job) -> bool:
                 job.source,
                 job.category,
                 job.normalized_category,
+                job.posted_date,
+                job.scraped_at
             )
         )
         conn.commit()
@@ -115,18 +118,32 @@ def save_job(job: Job) -> bool:
     return inserted
 
 
-def get_pending_notifications() -> List[Dict]:
+def get_pending_notifications() -> List[Job]:
     """Retrieves all jobs that have not been emailed to the user yet."""
     conn = sqlite3.connect(Settings.DATABASE_PATH)
     conn.row_factory = sqlite3.Row  # Access columns by name like dict
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM jobs WHERE notified = 0")
     rows = cursor.fetchall()
-    
+
     jobs = []
     for row in rows:
-        jobs.append(dict(row))
-        
+        jobs.append(
+            Job(
+                title=row["title"],
+                company=row["company"],
+                location=row["location"],
+                category=row["raw_category"],
+                url=row["url"],
+                type=row["job_type"],
+                source=row["source_site"],
+                id=row["id"],
+                normalized_category=row["normalized_category"],
+                posted_date=row["posted_date"],
+                scraped_at=row["scraped_at"],
+            )
+        )
+
     conn.close()
     return jobs
 
