@@ -1,6 +1,7 @@
 import logging
 
 from config.logging_config import logging_config
+from jobnotifier.helpers.filters import filter_by_date, filter_by_location, filter_by_jobtype
 from jobnotifier.normalizer import normalize_category
 from jobnotifier.services.email_service import Notifier
 from jobnotifier.scrapers.gozambiajobs import GoZambiaScraper
@@ -31,27 +32,30 @@ def main() -> None:
             logger.error(f"running scraper {scraper.source_name}: {e}")
             continue
 
-    # 4. Normalize categories
+    # 4. Filters
+    filtered_jobs = filter_by_date(jobs=raw_jobs)
+    filtered_jobs = filter_by_location(jobs=filtered_jobs)
+    filtered_jobs = filter_by_jobtype(jobs=filtered_jobs)
+
+    # 5. Normalize categories
     new_jobs_saved = []
-    for job in raw_jobs:
+    for job in filtered_jobs:
         normalized = normalize_category(
             raw_category=job.category,
             source_site=job.source
         )
         job.normalized_category = normalized
 
-    # 5. TODO: Add filter by date.
         is_new = save_job(job)
         if is_new:
             new_jobs_saved.append(job)
 
     logger.info(f"Processed {len(raw_jobs)} total listings. Saved {len(new_jobs_saved)} new matching jobs.")
 
-    # 5. Retrieve all pending notifications (including older unsent ones)
+    # 6. Retrieve all pending notifications (including older unsent ones)
     pending_jobs = get_pending_notifications()
 
-    # 6. Send email notification
-
+    # 7. Send email notification
     try:
         notifier = Notifier()
         notifier.send_job_alerts(pending_jobs)

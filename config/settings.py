@@ -32,3 +32,8 @@ class Settings:
     # Mappings file path (resolve relative to project base if needed)
     _mappings_path = os.getenv("MAPPINGS_FILE_PATH", "category_mappings.yaml")
     MAPPINGS_FILE_PATH = str(BASE_DIR / _mappings_path) if not Path(_mappings_path).is_absolute() else _mappings_path
+
+    # Additional job filters
+    TARGET_LOCATION = os.getenv("TARGET_LOCATION", "")
+    TARGET_JOBTYPE = os.getenv("TARGET_JOBTYPE", "")
+    TARGET_PAST_DAYS = int(os.getenv("TARGET_PAST_DAYS", "0"))
