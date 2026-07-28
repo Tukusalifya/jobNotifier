@@ -66,12 +66,12 @@ class Notifier:
         card_block = template[start:end]
 
         # No new jobs — return an empty state instead of a blank list of cards
-        # if not jobs:
-        #     empty_state = (
-        #         '<tr><td style="padding:24px 32px; text-align:center; '
-        #         'font-size:14px; color:#999999;">No new listings found today.</td></tr>'
-        #     )
-        #     return template[:start] + empty_state + template[end:]
+        if not jobs:
+            empty_state = (
+                '<tr><td style="padding:24px 32px; text-align:center; '
+                'font-size:14px; color:#999999;">No new listings found today.</td></tr>'
+            )
+            return template[:start] + empty_state + template[end:]
 
         # Build one card per job by substituting placeholders
         cards_html = ""
@@ -98,9 +98,9 @@ class Notifier:
         """
         Compiles the matching jobs and emails them to the user.
         """
-        if not jobs:
-            logger.critical("Notifier: No new jobs to notify.")
-            return
+        # if not jobs:
+        #     logger.critical("Notifier: No new jobs to notify.")
+        #     return
 
         subject = f"Job Mailer: {len(jobs)} New Job Opportunities Found "
         html_content = self.format_jobs_html(jobs)
