@@ -1,11 +1,11 @@
 import logging
 
-from config.logging_config import logging_config
-from jobnotifier.helpers.filters import filter_by_date, filter_by_location, filter_by_jobtype
 from jobnotifier.normalizer import normalize_category
 from jobnotifier.services.email_service import Notifier
+from jobnotifier.config.logging_config import logging_config
 from jobnotifier.scrapers.gozambiajobs import GoZambiaScraper
 from jobnotifier.scrapers.jobwebzambia import JobWebaZambiaScraper
+from jobnotifier.helpers.filters import filter_by_date, filter_by_location, filter_by_jobtype
 from jobnotifier.database.database import init_db, save_job, get_pending_notifications, mark_as_notified
 
 logger = logging_config(__name__, level=logging.DEBUG)

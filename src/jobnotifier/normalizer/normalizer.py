@@ -2,7 +2,7 @@ import os
 import yaml
 
 from typing import Dict, Optional
-from config.settings import Settings
+from jobnotifier.config.settings import Settings
 
 # Cached mappings dictionary
 _mappings_cache: Optional[Dict] = None
@@ -40,6 +40,4 @@ def normalize_category(raw_category: Optional[str], source_site: str) -> str:
 
     if raw_category in site_mappings:
         return site_mappings[raw_category]
-
-    # TODO: Implement a fuzzy matching fallback
 

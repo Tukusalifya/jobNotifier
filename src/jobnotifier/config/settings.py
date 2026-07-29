@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Find project base directory
-BASE_DIR = Path(__file__).resolve().parents[1]
+BASE_DIR = Path(__file__).resolve().parents[3]
 
 
 class Settings:

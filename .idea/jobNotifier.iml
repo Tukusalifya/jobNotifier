@@ -13,8 +13,8 @@
       <list>
         <option value="$MODULE_DIR$/src/jobnotifier/scrapers" />
         <option value="$MODULE_DIR$/src/jobnotifier/helpers" />
-        <option value="$MODULE_DIR$/config" />
         <option value="$MODULE_DIR$/src/jobnotifier/database" />
+        <option value="$MODULE_DIR$/src/jobnotifier/config" />
       </list>
     </option>
   </component>

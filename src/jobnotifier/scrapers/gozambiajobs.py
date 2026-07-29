@@ -3,11 +3,11 @@ import json
 import logging
 import requests
 
-from config.settings import Settings
 from jobnotifier.models.job import Job
-from config.logging_config import logging_config
+from jobnotifier.config.settings import Settings
 from jobnotifier.scrapers.base import BaseScraper
-from config.constants import GOZAMBIAJOBS_URL, GOZAMBIAJOBS_NAME
+from jobnotifier.config.logging_config import logging_config
+from jobnotifier.config.constants import GOZAMBIAJOBS_URL, GOZAMBIAJOBS_NAME
 from jobnotifier.helpers.data_parsers import format_category, datetime_formatter
 
 logger = logging_config(__name__, level=logging.INFO)

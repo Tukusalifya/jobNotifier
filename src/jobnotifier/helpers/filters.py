@@ -1,6 +1,6 @@
 from datetime import date, datetime, timedelta
 
-from config.settings import Settings
+from jobnotifier.config.settings import Settings
 from jobnotifier.models.job import Job
 
 
@@ -16,7 +16,7 @@ def filter_by_date(jobs: list[Job]) -> list[Job]:
 
     if TARGET_PAST_DAYS:
         today = date.today()
-        start_date = today - timedelta(days=7)
+        start_date = today - timedelta(days=TARGET_PAST_DAYS)
 
         filtered_jobs = [
             job for job in jobs

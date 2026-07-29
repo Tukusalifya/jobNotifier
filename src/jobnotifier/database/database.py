@@ -3,14 +3,13 @@ import logging
 import hashlib
 import sqlite3
 
-from datetime import datetime
-from typing import Dict, List, Optional
+from typing import List, Optional
 
-from config.settings import Settings
 from jobnotifier.models.job import Job
-from config.logging_config import logging_config
+from jobnotifier.config.settings import Settings
+from jobnotifier.config.logging_config import logging_config
 
-logger = logging_config(__name__, level=logging.DEBUG)
+logger = logging_config(__name__, level=logging.CRITICAL)
 
 
 def init_db() -> None:

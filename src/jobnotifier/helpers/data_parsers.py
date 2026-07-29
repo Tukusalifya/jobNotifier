@@ -3,8 +3,8 @@ import logging
 from typing import Optional
 from datetime import datetime
 
-from config.logging_config import logging_config
-from config.constants import JOBWEBZAMBIA_NAME, GOZAMBIAJOBS_NAME
+from jobnotifier.config.logging_config import logging_config
+from jobnotifier.config.constants import JOBWEBZAMBIA_NAME, GOZAMBIAJOBS_NAME
 
 logger = logging_config(__name__, level=logging.INFO)
 

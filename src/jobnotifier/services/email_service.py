@@ -7,12 +7,11 @@ from pathlib import Path
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-from config.settings import Settings
 from jobnotifier.models.job import Job
-from config.logging_config import logging_config
+from jobnotifier.config.settings import Settings
+from jobnotifier.config.logging_config import logging_config
 
 logger = logging_config(__name__, level=logging.DEBUG)
-
 TEMPLATE_PATH = Path(__file__).parents[3] / "templates" / "job_mailer_template.html"
 
 
