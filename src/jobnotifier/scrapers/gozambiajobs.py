@@ -58,7 +58,7 @@ class GoZambiaScraper(BaseScraper):
                     url = GOZAMBIAJOBS_URL + job['job_details_path']
                     company = job['employer']['name']
                     location = job['location'] if job['location'] else "Not specified"
-                    job_type = job['job_type']['title']
+                    job_type = job['job_type']['title'] if job['job_type'] else "Not specified"
                     posted_date = job['posted_at']
 
                     job_listings.append(
