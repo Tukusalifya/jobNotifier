@@ -63,10 +63,6 @@ jobNotifier/
 ├── category_mappings.yaml     # Maps source categories to standard internal taxonomy
 ├── .env                       # Secret parameters (credentials, database, filters)
 ├── .env.example               # Template environment settings
-├── config/
-│   ├── constants.py           # Site URLs and identifier constants
-│   ├── logging_config.py      # Dual rich-console and file logger configuration
-│   └── settings.py            # Environment variable loader
 ├── data/
 │   └── jobs.db                # SQLite database (auto-created on first run)
 ├── templates/
@@ -75,6 +71,10 @@ jobNotifier/
 └── src/
     ├── main.py                # Main orchestrator script
     └── jobnotifier/
+        ├── config/
+        │   ├── constants.py           # Site URLs and identifier constants
+        │   ├── logging_config.py      # Dual rich-console and file logger configuration
+        │   └── settings.py            # Environment variable loader
         ├── database/
         │   └── database.py    # SQLite CRUD operations & content hash math
         ├── helpers/
@@ -326,4 +326,4 @@ Logging is initialized via `config/logging_config.py`.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the Apache License 2.0 - see the LICENSE file for details.
