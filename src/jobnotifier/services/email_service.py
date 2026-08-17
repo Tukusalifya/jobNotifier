@@ -12,7 +12,7 @@ from jobnotifier.config.settings import Settings
 from jobnotifier.config.logging_config import logging_config
 
 logger = logging_config(__name__, level=logging.DEBUG)
-TEMPLATE_PATH = Path(__file__).parents[3] / "templates" / "job_mailer_template.html"
+TEMPLATE_PATH = Path(__file__).parents[3] / "templates" / "job_notifier_template.html"
 
 
 class Notifier:
@@ -29,7 +29,7 @@ class Notifier:
         """
         msg = MIMEMultipart("alternative")
         msg["Subject"] = subject
-        msg["From"] = f"Job Mailer <{self.sender_email}>"
+        msg["From"] = f"Job Notifier <{self.sender_email}>"
         msg["To"] = self.recipient_email
 
         # Attach the HTML version of the email body
@@ -101,6 +101,6 @@ class Notifier:
         #     logger.critical("Notifier: No new jobs to notify.")
         #     return
 
-        subject = f"Job Mailer: {len(jobs)} New Job Opportunities Found "
+        subject = f"Job Notifier: {len(jobs)} New Job Opportunities Found "
         html_content = self.format_jobs_html(jobs)
         self.send_email(subject, html_content)

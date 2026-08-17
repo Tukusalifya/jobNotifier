@@ -10,7 +10,7 @@ from jobnotifier.config.logging_config import logging_config
 from jobnotifier.config.constants import JOBWEBZAMBIA_URL, JOBWEBZAMBIA_NAME
 from jobnotifier.helpers.data_parsers import format_category, datetime_formatter
 
-logger = logging_config(__name__, level=logging.DEBUG)
+logger = logging_config(__name__, level=logging.INFO)
 session = requests.Session()
 
 

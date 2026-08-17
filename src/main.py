@@ -12,7 +12,7 @@ logger = logging_config(__name__, level=logging.DEBUG)
 
 
 def main() -> None:
-    logger.info("Job Mailer starting up...")
+    logger.info("Job Notifier starting up...")
     
     # 1. Initialize SQLite Database
     init_db()
@@ -67,7 +67,7 @@ def main() -> None:
     except Exception as e:
         logger.critical(f"Failed to send email notifications: {e}")
 
-    logger.info("Job Mailer run completed successfully.")
+    logger.info("Job Notifier run completed successfully.")
 
 
 if __name__ == "__main__":
